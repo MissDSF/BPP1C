@@ -1,0 +1,326 @@
+/* -----------------------
+   GENERAL
+----------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #444;
+}
+
+
+/* -----------------------
+   COLOUR PALETTE
+----------------------- */
+
+:root {
+
+    --coral: #f49a87;
+    --soft-coral: #fadfd4;
+    --peach: #f8cfc0;
+
+    --blue: #70c8d3;
+    --soft-blue: #dff3f5;
+
+    --grey: #f1f1f1;
+    --dark-grey: #555555;
+
+}
+
+
+/* -----------------------
+   HEADER
+----------------------- */
+
+.hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--soft-coral),
+            #ffffff 55%,
+            var(--soft-blue)
+        );
+
+    padding: 80px 25px;
+
+    text-align: center;
+
+}
+
+
+.hero-text {
+
+    max-width: 750px;
+    margin: auto;
+
+}
+
+
+.mini-title {
+
+    color: var(--coral);
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    font-weight: bold;
+
+}
+
+
+.hero h1 {
+
+    font-size: 46px;
+
+    margin: 15px 0;
+
+    color: #444;
+
+}
+
+
+.hero p {
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+}
+
+
+/* -----------------------
+   INTRO
+----------------------- */
+
+.intro {
+
+    text-align: center;
+
+    margin: 60px 20px 35px;
+
+}
+
+
+.intro h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.intro p {
+
+    color: #777;
+
+}
+
+
+/* -----------------------
+   GRID
+----------------------- */
+
+.grid {
+
+    width: 90%;
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 28px;
+
+}
+
+
+/* -----------------------
+   CARDS
+----------------------- */
+
+.card {
+
+    text-decoration: none;
+
+    color: inherit;
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.08);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 16px 35px rgba(0,0,0,0.14);
+
+}
+
+
+.image-container {
+
+    height: 230px;
+
+    overflow: hidden;
+
+}
+
+
+.image-container img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* placeholders */
+
+.placeholder {
+
+    height: 230px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 65px;
+
+}
+
+
+.coral {
+    background: var(--soft-coral);
+}
+
+
+.blue {
+    background: var(--soft-blue);
+}
+
+
+.peach {
+    background: var(--peach);
+}
+
+
+/* CARD TEXT */
+
+.card-content {
+
+    padding: 23px;
+
+}
+
+
+.number {
+
+    color: var(--coral);
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+}
+
+
+.card h3 {
+
+    margin:
+
+        10px 0 5px;
+
+    font-size: 23px;
+
+}
+
+
+.card p {
+
+    margin-top: 0;
+
+    color: #888;
+
+}
+
+
+.listen {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: var(--coral);
+
+    font-weight: bold;
+
+}
+
+
+/* -----------------------
+   FOOTER
+----------------------- */
+
+footer {
+
+    margin-top: 80px;
+
+    padding: 35px;
+
+    background: var(--grey);
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+/* -----------------------
+   MOBILE
+----------------------- */
+
+@media (max-width: 600px) {
+
+    .hero {
+
+        padding: 55px 20px;
+
+    }
+
+    .hero h1 {
+
+        font-size: 34px;
+
+    }
+
+}
