@@ -1,216 +1,666 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biography Pronunciation Practice - 1° Medio C</title>
+  <style>
+    :root {
+      --pink: #F4547A;
+      --orange: #FEA154;
+      --yellow: #FEE040;
+      --teal: #64C1CF;
+      --blue: #2787C2;
+      --green: #ABD229;
+      --text: #263238;
+      --muted: #667085;
+      --soft: #F7F9FC;
+      --border: #E8ECF2;
+    }
 
-    <title>Biography Listening Practice</title>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-    <link rel="stylesheet" href="style.css">
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .color-bar {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      height: 12px;
+      width: 100%;
+    }
+
+    .color-bar span:nth-child(1) { background: var(--pink); }
+    .color-bar span:nth-child(2) { background: var(--orange); }
+    .color-bar span:nth-child(3) { background: var(--yellow); }
+    .color-bar span:nth-child(4) { background: var(--teal); }
+    .color-bar span:nth-child(5) { background: var(--blue); }
+    .color-bar span:nth-child(6) { background: var(--green); }
+
+    header {
+      text-align: center;
+      padding: 46px 20px 28px;
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      color: #1f2937;
+    }
+
+    .course-badge {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--pink) 16%, white);
+      color: #9f2447;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      padding: 20px 0 54px;
+    }
+
+    .bio-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(31, 41, 55, 0.07);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .bio-card:hover,
+    .bio-card:focus-visible {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 16px 34px rgba(31, 41, 55, 0.14);
+      border-color: transparent;
+      outline: none;
+    }
+
+    .bio-card img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      display: block;
+      background: var(--soft);
+    }
+
+    .bio-card-content {
+      padding: 18px 18px 20px;
+      border-top: 6px solid var(--accent);
+    }
+
+    .bio-card h2 {
+      font-size: 1.25rem;
+      margin: 0 0 4px;
+    }
+
+    .bio-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 10px 0 30px;
+      font-size: 2rem;
+    }
+
+    .bio-detail {
+      --accent: var(--blue);
+      margin: 0 0 32px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-left: 8px solid var(--accent);
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(31, 41, 55, 0.07);
+      scroll-margin-top: 18px;
+    }
+
+    .bio-detail-grid {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .bio-detail img {
+      width: 210px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 18px;
+      background: var(--soft);
+    }
+
+    .bio-detail h3 {
+      font-size: 1.8rem;
+      margin: 0 0 10px;
+    }
+
+    .student-text {
+      font-size: 1.07rem;
+      margin: 0 0 18px;
+    }
+
+    .word-help {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent) 12%, white);
+      color: #344054;
+      font-size: .92rem;
+      font-weight: 700;
+    }
+
+    .speak-word {
+      display: inline;
+      padding: 2px 2px;
+      margin: 0 -1px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+
+    .speak-word:hover,
+    .speak-word:focus-visible {
+      background: color-mix(in srgb, var(--accent) 22%, white);
+      color: #111827;
+      outline: none;
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 34%, white);
+    }
+
+    .speak-word.is-speaking {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .members {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .audio-box {
+      background: var(--soft);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .audio-box strong {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    audio {
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .speed-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .speed-row label { font-weight: 700; }
+
+    .speed-row select {
+      border: 1px solid #cfd6df;
+      border-radius: 10px;
+      padding: 8px 12px;
+      background: #fff;
+      font-size: .96rem;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      text-decoration: none;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    footer {
+      margin-top: 58px;
+      padding: 28px 20px 36px;
+      text-align: center;
+      color: var(--muted);
+      background: #fafafa;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 850px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bio-detail-grid { grid-template-columns: 1fr; }
+      .bio-detail img { width: 100%; height: 320px; }
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .bio-card img { height: 300px; }
+      .bio-detail { padding: 20px; }
+      .bio-detail img { height: 300px; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="color-bar" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
 
-<header class="hero">
+  <header id="inicio">
+    <h1>Biography Pronunciation Practice</h1>
+    <div class="course-badge">1° Medio C</div>
+    <p>Read, listen, slow down the audio and tap any word to practice its pronunciation.</p>
+  </header>
 
-    <div class="hero-text">
+  <main class="container">
+    <section class="grid" aria-label="Biografías">
+      <a class="bio-card" href="#neruda" style="--accent: var(--pink);">
+        <img src="images/pablo-neruda.jpg" data-base="images/pablo-neruda" alt="Pablo Neruda">
+        <div class="bio-card-content"><h2>Pablo Neruda</h2><p>Read and listen</p></div>
+      </a>
 
-        <p class="mini-title">1° MEDIO · ENGLISH</p>
+      <a class="bio-card" href="#amy" style="--accent: var(--orange);">
+        <img src="images/amy-winehouse.jpg" data-base="images/amy-winehouse" alt="Amy Winehouse">
+        <div class="bio-card-content"><h2>Amy Winehouse</h2><p>Read and listen</p></div>
+      </a>
 
-        <h1>Biography Listening Gallery</h1>
+      <a class="bio-card" href="#marilyn" style="--accent: var(--yellow);">
+        <img src="images/marilyn-monroe.jpg" data-base="images/marilyn-monroe" alt="Marilyn Monroe">
+        <div class="bio-card-content"><h2>Marilyn Monroe</h2><p>Read and listen</p></div>
+      </a>
 
-        <p>
-            Choose a person, read their biography
-            and practice English pronunciation.
-        </p>
+      <a class="bio-card" href="#vicente" style="--accent: var(--teal);">
+        <img src="images/vicente-fernandez.jpg" data-base="images/vicente-fernandez" alt="Vicente Fernández">
+        <div class="bio-card-content"><h2>Vicente Fernández</h2><p>Read and listen</p></div>
+      </a>
 
-    </div>
+      <a class="bio-card" href="#roald" style="--accent: var(--blue);">
+        <img src="images/roald-dahl.jpg" data-base="images/roald-dahl" alt="Roald Dahl">
+        <div class="bio-card-content"><h2>Roald Dahl</h2><p>Read and listen</p></div>
+      </a>
 
-</header>
+      <a class="bio-card" href="#freddie" style="--accent: var(--green);">
+        <img src="images/freddie-mercury.jpg" data-base="images/freddie-mercury" alt="Freddie Mercury">
+        <div class="bio-card-content"><h2>Freddie Mercury</h2><p>Read and listen</p></div>
+      </a>
 
+      <a class="bio-card" href="#kurt" style="--accent: var(--pink);">
+        <img src="images/kurt-cobain.jpg" data-base="images/kurt-cobain" alt="Kurt Cobain">
+        <div class="bio-card-content"><h2>Kurt Cobain</h2><p>Read and listen</p></div>
+      </a>
 
-<main>
+      <a class="bio-card" href="#giuliano" style="--accent: var(--orange);">
+        <img src="images/giuliano-yankees.jpg" data-base="images/giuliano-yankees" alt="Giuliano Yankees">
+        <div class="bio-card-content"><h2>Giuliano Yankees</h2><p>Read and listen</p></div>
+      </a>
 
-    <section class="intro">
-
-        <h2>Choose a biography</h2>
-
-        <p>
-            Click on a card to read and listen.
-        </p>
-
+      <a class="bio-card" href="#ramon" style="--accent: var(--teal);">
+        <img src="images/ramon-cardemil.jpg" data-base="images/ramon-cardemil" alt="Ramón Cardemil Moraga">
+        <div class="bio-card-content"><h2>Ramón Cardemil Moraga</h2><p>Read and listen</p></div>
+      </a>
     </section>
 
-
-    <section class="grid">
-
-
-        <!-- PAUL WALKER -->
-
-        <a class="card" href="biografias/paul-walker.html">
-
-            <div class="image-container">
-
-                <img
-                    src="imagenes/paul-walker.jpg"
-                    alt="Paul Walker">
-
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">01</span>
-
-                <h3>Paul Walker</h3>
-
-                <p>Actor</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
-        <!-- BIOGRAPHY 2 -->
-
-        <a class="card" href="biografias/biografia-2.html">
-
-            <div class="placeholder coral">
-                🎤
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">02</span>
-
-                <h3>Biography 2</h3>
-
-                <p>Music</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
-        <!-- BIOGRAPHY 3 -->
-
-        <a class="card" href="biografias/biografia-3.html">
-
-            <div class="placeholder blue">
-                🎨
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">03</span>
-
-                <h3>Biography 3</h3>
-
-                <p>Art</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
-        <!-- BIOGRAPHY 4 -->
-
-        <a class="card" href="biografias/biografia-4.html">
-
-            <div class="placeholder peach">
-                🎬
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">04</span>
-
-                <h3>Biography 4</h3>
-
-                <p>Cinema</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
-        <!-- BIOGRAPHY 5 -->
-
-        <a class="card" href="biografias/biografia-5.html">
-
-            <div class="placeholder blue">
-                ⭐
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">05</span>
-
-                <h3>Biography 5</h3>
-
-                <p>Famous Person</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
-        <!-- BIOGRAPHY 6 -->
-
-        <a class="card" href="biografias/biografia-6.html">
-
-            <div class="placeholder coral">
-                📚
-            </div>
-
-            <div class="card-content">
-
-                <span class="number">06</span>
-
-                <h3>Biography 6</h3>
-
-                <p>Biography</p>
-
-                <span class="listen">
-                    Read & Listen →
-                </span>
-
-            </div>
-
-        </a>
-
-
+    <h2 class="section-title">Texts & Pronunciation</h2>
+
+    <section id="neruda" class="bio-detail" style="--accent: var(--pink);">
+      <div class="bio-detail-grid">
+        <img src="images/pablo-neruda.jpg" data-base="images/pablo-neruda" alt="Pablo Neruda">
+        <div>
+          <h3>Pablo Neruda</h3>
+          <p class="student-text">The Chilean poet Pablo Neruda (born Neftali Ricardo Reyes Basoalto) was one of the most influential writers of the 20th century. He won the Nobel Prize in Literature in 1971, served as a Chilean diplomat and politician, lived mainly in Santiago, Temuco, and his three iconic houses in Chile (as well as several countries for his consular missions), and died on September 23, 1973, in Santiago, Chile.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> M, L, E, PG, PM.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/pablo-neruda.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
     </section>
 
-</main>
+    <section id="amy" class="bio-detail" style="--accent: var(--orange);">
+      <div class="bio-detail-grid">
+        <img src="images/amy-winehouse.jpg" data-base="images/amy-winehouse" alt="Amy Winehouse">
+        <div>
+          <h3>Amy Winehouse</h3>
+          <p class="student-text">Amy Winehouse was a singer and British composer. She was born on September 14, 1983, in Enfield, United Kingdom. She was famous for her impressive contralto voice and her unique talent for blending jazz, soul and R&amp;B. She sang soul, jazz and R&amp;B. She died on July 23, 2011, in Camden Town, London, United Kingdom.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> A.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/amy-winehouse.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
 
+    <section id="marilyn" class="bio-detail" style="--accent: var(--yellow);">
+      <div class="bio-detail-grid">
+        <img src="images/marilyn-monroe.jpg" data-base="images/marilyn-monroe" alt="Marilyn Monroe">
+        <div>
+          <h3>Marilyn Monroe</h3>
+          <p class="student-text">She was an actress and model. She was born on August 1, 1926 in Los Angeles, California. She was famous for the movie “Some Like It Hot”. She acted and modeled. She died on August 4, 1962, in Los Angeles, California.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> D, M, B, V, S.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/marilyn-monroe.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
 
-<footer>
+    <section id="vicente" class="bio-detail" style="--accent: var(--teal);">
+      <div class="bio-detail-grid">
+        <img src="images/vicente-fernandez.jpg" data-base="images/vicente-fernandez" alt="Vicente Fernández">
+        <div>
+          <h3>Vicente Fernández</h3>
+          <p class="student-text">He was a Mexican singer of ranchera music. He was born on February 17, 1940, in Huentitán, El Alto, Jalisco. He was famous for his music and movies. He acted and sang ranchera. He died on December 12, 2021, in Guadalajara, Mexico.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> N, H, J, AM, AP.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/vicente-fernandez.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
 
-    <p>
-        English · 1° Medio
-    </p>
+    <section id="roald" class="bio-detail" style="--accent: var(--blue);">
+      <div class="bio-detail-grid">
+        <img src="images/roald-dahl.jpg" data-base="images/roald-dahl" alt="Roald Dahl">
+        <div>
+          <h3>Roald Dahl</h3>
+          <p class="student-text">He was a famous British author and storyteller. He was born on September 13, 1916, in Llandaff, Wales. He was famous for his children's books such as Matilda, Charlie and the Chocolate Factory and the BFG. He worked as a fighter pilot and wrote children's books. He died on November 23, 1990, in Oxford, England.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> E, Y, A, M.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/roald-dahl.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
 
-</footer>
+    <section id="freddie" class="bio-detail" style="--accent: var(--green);">
+      <div class="bio-detail-grid">
+        <img src="images/freddie-mercury.jpg" data-base="images/freddie-mercury" alt="Freddie Mercury">
+        <div>
+          <h3>Freddie Mercury</h3>
+          <p class="student-text">Freddie was a singer. He was born in Stone Town, Zanzibar, on September 5, 1946. He was famous for being the legendary lead vocalist for Queen. He sang in the band Queen. He died on November 24, 1991, in London, England.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> I.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/freddie-mercury.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
 
+    <section id="kurt" class="bio-detail" style="--accent: var(--pink);">
+      <div class="bio-detail-grid">
+        <img src="images/kurt-cobain.jpg" data-base="images/kurt-cobain" alt="Kurt Cobain">
+        <div>
+          <h3>Kurt Cobain</h3>
+          <p class="student-text">Kurt Cobain was a famous singer and guitarist. Kurt Cobain was born on February 20, 1967, in Aberdeen, Washington. Kurt Cobain was famous for his rock band Nirvana. Kurt Cobain played guitar and sang. Kurt Cobain died on April 5, 1994 in Seattle, Washington.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> D, K, J, B, O.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/kurt-cobain.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="giuliano" class="bio-detail" style="--accent: var(--orange);">
+      <div class="bio-detail-grid">
+        <img src="images/giuliano-yankees.jpg" data-base="images/giuliano-yankees" alt="Giuliano Yankees">
+        <div>
+          <h3>Giuliano Yankees</h3>
+          <p class="student-text">Giuliano Yankees was a famous Chilean urban singer. He was born on February 5, 2006. He became very popular in Chile. He released many songs for his fans. He died on June 6, 2023, in Puente Alto, Chile.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> R, MJ, MV, B.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/giuliano-yankees.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ramon" class="bio-detail" style="--accent: var(--teal);">
+      <div class="bio-detail-grid">
+        <img src="images/ramon-cardemil.jpg" data-base="images/ramon-cardemil" alt="Ramón Cardemil Moraga">
+        <div>
+          <h3>Ramón Cardemil Moraga</h3>
+          <p class="student-text">We are going to talk about Ramón Cardemil Moraga. He was born on January 17th, 1917 in the Fundo Ranguilí (between Colchagua and Curicó) Chile. He was a famous Chilean Huaso rodeo rider, and he was famous for his technique, and for his connection with his horses. Ramón Cardemil was famous for winning the national rodeo tournament “Champion” of Chile 7 times. Finally, he died on September 8th, 2007, in Curicó, Chile.</p>
+          <div class="word-help">🔊 Haz clic en cualquier palabra para escucharla.</div>
+          <p class="members"><strong>Integrantes:</strong> S, I, AV, R, AT.</p>
+          <div class="audio-box">
+            <strong>🎧 Pronunciation audio</strong>
+            <audio controls preload="metadata" src="audio/ramon-cardemil.mp3"></audio>
+            <div class="speed-row"><label>Velocidad:</label><select class="speed-control"><option value="0.60">0.60× Muy lento</option><option value="0.75">0.75× Lento</option><option value="0.85">0.85×</option><option value="1" selected>1× Normal</option><option value="1.15">1.15×</option></select></div>
+          </div>
+          <a class="back-link" href="#inicio">↑ Volver a las biografías</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>English pronunciation practice · 1° Medio C · Student biographies</footer>
+
+  <script>
+    // Velocidad de los audios completos.
+    document.querySelectorAll('.speed-control').forEach(select => {
+      const box = select.closest('.audio-box');
+      const audio = box.querySelector('audio');
+      select.addEventListener('change', () => {
+        audio.playbackRate = Number(select.value);
+      });
+    });
+
+    // Si una foto fue subida como .jpeg, .png o .webp en vez de .jpg,
+    // la página intentará encontrarla automáticamente.
+    document.querySelectorAll('img[data-base]').forEach(img => {
+      const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
+      let attempt = 0;
+      img.addEventListener('error', () => {
+        attempt += 1;
+        if (attempt < extensions.length) {
+          img.src = img.dataset.base + extensions[attempt];
+        }
+      });
+    });
+
+    const synth = window.speechSynthesis;
+    let availableVoices = [];
+    let activeWord = null;
+
+    function refreshVoices() {
+      availableVoices = synth ? synth.getVoices() : [];
+    }
+
+    if (synth) {
+      refreshVoices();
+      if ('onvoiceschanged' in synth) synth.onvoiceschanged = refreshVoices;
+    }
+
+    function preferredEnglishVoice() {
+      if (!availableVoices.length) refreshVoices();
+      return availableVoices.find(v => /Google US English/i.test(v.name)) ||
+             availableVoices.find(v => /Google.*English/i.test(v.name) && /^en-US/i.test(v.lang)) ||
+             availableVoices.find(v => /^en-US/i.test(v.lang)) ||
+             availableVoices.find(v => /^en/i.test(v.lang)) ||
+             null;
+    }
+
+    function numberUnder100(n) {
+      const ones = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+      const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+      if (n < 20) return ones[n];
+      const ten = Math.floor(n / 10);
+      const unit = n % 10;
+      return unit === 0 ? tens[ten] : tens[ten] + ' ' + ones[unit];
+    }
+
+    function yearToSpeech(word) {
+      const clean = word.replace(/[.,!?;:]/g, '');
+      if (!/^\d{4}$/.test(clean)) return word;
+      const year = Number(clean);
+
+      if (year >= 1900 && year <= 1999) {
+        const lastTwo = year % 100;
+        if (lastTwo === 0) return 'nineteen hundred';
+        if (lastTwo < 10) return 'nineteen oh ' + numberUnder100(lastTwo);
+        return 'nineteen ' + numberUnder100(lastTwo);
+      }
+
+      if (year >= 2000 && year <= 2009) {
+        const lastDigit = year - 2000;
+        if (lastDigit === 0) return 'two thousand';
+        return 'two thousand ' + numberUnder100(lastDigit);
+      }
+
+      if (year >= 2010 && year <= 2099) {
+        return 'twenty ' + numberUnder100(year % 100);
+      }
+
+      return word;
+    }
+
+    function textToSpeech(word) {
+      const yearSpeech = yearToSpeech(word);
+      if (yearSpeech !== word) return yearSpeech;
+
+      const ordinalMatch = word.match(/^(\d{1,2})(st|nd|rd|th)$/i);
+      if (ordinalMatch) {
+        const n = Number(ordinalMatch[1]);
+        const special = {
+          1:'first', 2:'second', 3:'third', 4:'fourth', 5:'fifth', 6:'sixth', 7:'seventh', 8:'eighth', 9:'ninth', 10:'tenth',
+          11:'eleventh', 12:'twelfth', 13:'thirteenth', 14:'fourteenth', 15:'fifteenth', 16:'sixteenth', 17:'seventeenth', 18:'eighteenth', 19:'nineteenth', 20:'twentieth',
+          21:'twenty first', 22:'twenty second', 23:'twenty third', 24:'twenty fourth', 25:'twenty fifth', 26:'twenty sixth', 27:'twenty seventh', 28:'twenty eighth', 29:'twenty ninth', 30:'thirtieth', 31:'thirty first'
+        };
+        return special[n] || word;
+      }
+
+      return word;
+    }
+
+    function speakWord(word, element) {
+      if (!synth || !word) return;
+      synth.cancel();
+
+      if (activeWord) activeWord.classList.remove('is-speaking');
+      activeWord = element;
+      activeWord.classList.add('is-speaking');
+
+      const utterance = new SpeechSynthesisUtterance(textToSpeech(word));
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+      utterance.pitch = 1;
+
+      const voice = preferredEnglishVoice();
+      if (voice) utterance.voice = voice;
+
+      utterance.onend = () => {
+        if (activeWord === element) {
+          element.classList.remove('is-speaking');
+          activeWord = null;
+        }
+      };
+
+      utterance.onerror = () => {
+        element.classList.remove('is-speaking');
+        if (activeWord === element) activeWord = null;
+      };
+
+      synth.speak(utterance);
+    }
+
+    // Convierte automáticamente cada palabra de las biografías en una palabra clickeable.
+    document.querySelectorAll('.student-text').forEach(paragraph => {
+      const text = paragraph.textContent;
+      const tokens = text.match(/\s+|[A-Za-zÀ-ÿ0-9]+(?:['’\-&][A-Za-zÀ-ÿ0-9]+)*|[^\sA-Za-zÀ-ÿ0-9]+/g) || [];
+      const fragment = document.createDocumentFragment();
+
+      tokens.forEach(token => {
+        if (/^[A-Za-zÀ-ÿ0-9]/.test(token)) {
+          const span = document.createElement('span');
+          span.className = 'speak-word';
+          span.textContent = token;
+          span.setAttribute('role', 'button');
+          span.setAttribute('tabindex', '0');
+          span.setAttribute('aria-label', `Escuchar pronunciación de ${token}`);
+          span.addEventListener('click', () => speakWord(token, span));
+          span.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              speakWord(token, span);
+            }
+          });
+          fragment.appendChild(span);
+        } else {
+          fragment.appendChild(document.createTextNode(token));
+        }
+      });
+
+      paragraph.textContent = '';
+      paragraph.appendChild(fragment);
+    });
+  </script>
 </body>
 </html>
